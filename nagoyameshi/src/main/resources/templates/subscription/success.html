@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+	<div th:replace="~{fragment :: meta}"></div>
+
+	<div th:replace="~{fragment :: meta}"></div>
+
+	<title>有料会員登録</title>
+</head>
+<body>
+	<div class="nagoyameshi-wrapper">
+		<!-- ヘッダー -->
+		<div th:replace="~{fragment :: header}"></div>
+		
+		<main>
+			<main>
+			<div class="container pt-4 pb-5 nagoyameshi-container">
+				<div class="row justify-content-center">
+					<div class="col-xl-4 col-lg-5">
+						<nav class="mb-4" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+							<ol class="breadcrumb mb-0">
+								<li class="breadcrumb-item"><a th:href="@{/}">ホーム</a></li>
+								<li class="breadcrumb-item active" aria-current="page">有料会員登録</li>
+							</ol>
+						</nav>
+					</div>
+					
+					<h1>支払いに成功しました。</h1>
+				</div>
+			</div>
+		</main>
+		
+		<div th:replace="~{fragment :: footer}"></div>
+	</main>
+</body>

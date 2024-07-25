@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+	<div th:replace="~{fragment :: meta}"></div>
+
+	<div th:replace="~{fragment :: meta}"></div>
+
+	<title>有料会員登録</title>
+</head>
+
+<body>
+	<div class="nagoyameshi-wrapper">
+		<!-- ヘッダー -->
+		<div th:replace="~{fragment :: header}"></div>
+
+		<main>
+			<div class="container pt-4 pb-5 nagoyameshi-container">
+				<div class="row justify-content-center">
+					<div class="col-xl-4 col-lg-5">
+						<nav class="mb-4" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+							<ol class="breadcrumb mb-0">
+								<li class="breadcrumb-item"><a th:href="@{/}">ホーム</a></li>
+								<li class="breadcrumb-item active" aria-current="page">有料会員登録</li>
+							</ol>
+						</nav>
+
+						<h2 class="text-center mb4">有料会員登録</h2>
+
+						<div th:if="${successMessage}" class="alert alert-info" role="alert">
+							<span th:text="${successMessage}"></span>
+						</div>
+
+						<form method="post" th:action="@{/subscription/create}">
+							<div id="cardHolderNameError"></div>
+							<input class="form-control mb-3 card-element" id="card-holder-name" type="text"
+								placeholder="カード名義人" required>
+							<div id="cardElementError"></div>
+							<div class="card-element mb-4" id="card-element"></div>
+
+							<input type="hidden" name="priceId">
+							<div class="d-flex justify-content-center">
+								<button class="btn text-white shadow-sm w-50 nagoyameshi-btn" type="submit">登録</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</main>
+
+		<div th:replace="~{fragment :: footer}"></div>
+	</div>
+	<!--/*
+	<form method="post" th:action="@{/webhook}">
+		<button id="checkout-button">サブスクリプションを開始</button>
+	</form> */-->
+	
+	<script type="text/javascript">
+		var stripe = Stripe('pk_test_51OQS89Dj1UaUVpmtpuVSgFkHByw8NVmdmwMgY69c1AnMBiC0jREQmqYwCgbah9fePDpdvPOux60oNR4P40PXaxJq00uZo1QEqI');
+
+		document.getElementById('checkout-button').addEventListener('click', function () {
+			fetch('/api/checkout/create-checkout-session', {
+				method: 'POST',
+			})
+				.then(function (response) {
+					return response.json();
+				})
+				.then(function (sessionId) {
+					return stripe.redirectToCheckout({sessionId: sessionId.id});
+				})
+				.then(function (result) {
+					if (result.error) {
+						alert(result.error.message);
+					}
+				})
+				.catch(function (error) {
+					console.error('Error:', error);
+				});
+		});
+	</script>
+	</body>
+	
+</html>
