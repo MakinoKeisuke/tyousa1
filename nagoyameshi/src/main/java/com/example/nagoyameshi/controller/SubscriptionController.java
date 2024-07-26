@@ -44,7 +44,7 @@ public class SubscriptionController {
 		Member member = memberRepository.getReferenceById(userDetailsImpl.getMember().getId());
 		memberService.createSubscription(member);
 		
-		redirectAttributes.addFlashAttribute("successMessage", "有料会員を登録しました、");
+		redirectAttributes.addFlashAttribute("successMessage", "有料会員を登録しました");
 		
 		return "redirect:/";
 		

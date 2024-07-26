@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+         <meta charset="UTF-8">
+         <meta name="viewport" content="width=device-width, initial-scale=1">
+         <div th:replace="~{fragment :: meta}"></div>   
+              
+         <div th:replace="~{fragment :: styles}"></div>
+        
+        <title>NAGOYAMWSHI</title>	
+    </head>
+    <body>
+         <div class="nagoyameshi-wrapper">
+             <!-- ヘッダー -->
+             <div th:replace="~{fragment :: header}"></div>
+             
+             <main>
+                 <div class="container pt-4 pb-5 nagoyameshi-container">
+                     <div th:if="${param.loggedIn}" class="alert alert-info" sec:authorize="hasRole('ROLE_FREE_MEMBER')">
+                         ログインしました。
+                     </div>  
+                     
+                     <div th:if="${param.loggedOut}" class="alert alert-info">
+                         ログアウトしました。
+                     </div>
+                     
+                     <div th:if="${param.loggedIn}" class="alert alert-info" sec:authorize="hasRole('ROLE_PAID_MEMBER')">
+                         有料会員でログインしました。
+                     </div>
+                     
+                      <div th:if="${param.loggedOut}" class="alert alert-info" sec:authorize="hasRole('ROLE_PAID_MEMBER')">
+                         有料会員を解約しました。
+                     </div>
+                     
+                     <div th:if="${successMessage}" class="alert alert-info">
+						 <span th:text="${successMessage}"></span>
+					 </div>
+					 
+					 <div class="d-flex justify-content-center">
+						 <form method="get" th:action="@{/shopes}" class="mb-5 nagoyameshi-search-form">
+							 <div class="input-group">
+								 <input type="text" class="form-control" name="keyword" th:value="${keyword}" placeholder="店舗名">
+								 <button type="submit" class="btn text-white shadow-sm nagoyameshi-btn">検索</button>
+							 </div>
+						 </form>
+					 </div>
+					 
+					 <h2 class="text-center mb-3">新着</h2>
+					 <div class="row row-cols-lg-5 row-cols-2 g-3 mb-5">
+						 <div class="col" th:each="newShope : ${newShopes}">
+							 <a th:href="@{/shopes/__${newShope.getId()}__}" class="link-dark nagoyameshi-card-link">
+								 <div class="card h-100">
+								 	<img th:if="${newShope.getImageName()}" th:src="@{/storage/__${newShope.getImageName()}__}" class="card-img-top nagoyameshi-vertical-card-image" alt="店舗画像">
+								 	<img th:unless="${newShope.getImageName()}" th:src="@{/images/noImage.png}" class="card-img-top nagoyameshi-vertical-card-image" alt="NO IMAGE">
+								 	<div class="card-body">
+										 <h3 class="card-title" th:text="${newShope.getName()}"></h3>
+										 <p class="card-text mb-1">
+											<small class="text-muted" th:text="${newShope.getAddress()}"></small>
+										 </p>
+										 <p class="card-text">
+											 <span th:text="${#numbers.formatInteger(newShope.getLowPrice(), 1, 'COMMA') + '円'} + '～' + ${#numbers.formatInteger(newShope.getHeighPrice(), 1, 'COMMA') + '円'}"></span>
+										 </p>
+									 </div>
+								 </div>
+							 </a>
+						 </div>
+					 </div>
+					 
+					 <div class="row justify-content-center">
+						 <div class="col-xl-5 col-lg-6 col-md-8">
+							 
+							 <h2 class="text-center mb-3">カテゴリーから探す</h2>
+							 
+							 <table class="table">
+								 <thody>
+									 <tr>
+										 <th>麺料理</th>
+										 <td>
+											 <a th:href="@{/shopes?category_id=1}" class="me-2">ラーメン</a>
+											 <a th:href="@{/shopes?category_id=12}" class="me-2">うどん</a>
+										 </td>
+									 </tr>
+									 <tr>
+										 <th>日本料理</th>
+										 <td>
+										 	 <a th:href="@{/shopes?category_id=2}" class="me-2">居酒屋</a>
+										 	 <a th:href="@{/shopes?category_id=4}" class="me-2">寿司</a>
+										 	 <a th:href="@{/shopes?category_id=10}" class="me-2">和食</a>
+										 	 <a th:href="@{/shopes?category_id=13}" class="me-2">ひつまぶし</a>
+										 	 <a th:href="@{/shopes?category_id=15}" class="me-2">揚げ物</a>
+										 </td>	 
+									 </tr>
+									 <tr>
+										 <th>海外料理</th>
+										 <td>
+										 	 <a th:href="@{/shopes?category_id=5}" class="me-2">イタリア料理</a>
+										 	 <a th:href="@{/shopes?category_id=6}" class="me-2">フランス料理</a>
+										 	 <a th:href="@{/shopes?category_id=7}" class="me-2">中華料理</a>
+										 	 <a th:href="@{/shopes?category_id=14}" class="me-2">カレー</a>
+										 </td>	 
+									 </tr>
+									 <tr>
+										 <th>肉料理</th>
+										 <td>
+										 	 <a th:href="@{/shopes?category_id=3}" class="me-2">焼肉</a>
+										 	 <a th:href="@{/shopes?category_id=8}" class="me-2">しゃぶしゃぶ</a>
+										 	 <a th:href="@{/shopes?category_id=9}" class="me-2">焼き鳥</a>
+										 	 <a th:href="@{/shopes?category_id=11}" class="me-2">ステーキハウス</a>
+										 </td>	 
+									 </tr>
+								 </thody>
+							 </table>
+						 </div>
+					 </div>
+                 </div>
+             </main>
+             
+           	 <div th:replace="~{fragment :: footer}"></div>
+		</div>
+		
+		<div th:replace="~{fragment :: scripts}"></div>
+		<!-- この追記はSTRIPEの記述です -->
+		
+		<script src="https://js.stripe.com/v3/"></script>
+		<button id="checkout-button">サブスクリプションを開始</button>
+
+		<script type="text/javascript">
+  		// スクリプトタグ内にてJavaScriptコードを記述します
+		</script>
+		
+     </body>
+</html>

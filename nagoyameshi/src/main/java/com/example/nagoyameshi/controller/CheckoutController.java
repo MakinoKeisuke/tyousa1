@@ -15,7 +15,7 @@ import com.stripe.param.checkout.SessionCreateParams;
 @RequestMapping("/subscription/create")
 public class CheckoutController {
 	
-	@Value("${stripe.api.key}")
+	@Value("${stripe.api-key}")
     private String stripeApiKey;
 
     @PostMapping("/create-checkout-session")

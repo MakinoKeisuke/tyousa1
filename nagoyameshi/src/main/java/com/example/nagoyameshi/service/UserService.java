@@ -1,5 +1,7 @@
 package com.example.nagoyameshi.service;
 
+import java.util.Map;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -25,5 +27,10 @@ public class UserService {
 
 		// Example encoded passwords
 		System.out.println(passwordEncoder.encode("password")); // For manual insertion in your SQL file
+	}
+
+	public void updateRole(Map<String, String> metadata) {
+		// TODO 自動生成されたメソッド・スタブ
+		
 	}
 }

@@ -10,7 +10,7 @@ import jakarta.annotation.PostConstruct;
 @Configuration
 public class StripeConfig {
 	
-	 @Value("${stripe.api.key}")
+	 @Value("${stripe.api-key}")
 	 private String stripeApiKey;
 
 	 @PostConstruct
