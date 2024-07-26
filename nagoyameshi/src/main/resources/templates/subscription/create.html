@@ -40,7 +40,11 @@
 
 							<input type="hidden" name="priceId">
 							<div class="d-flex justify-content-center">
+<<<<<<< HEAD
 								<button id="paymentButton" class="btn text-white shadow-sm w-50 nagoyameshi-btn">決済</button>
+=======
+								<button class="btn text-white shadow-sm w-50 nagoyameshi-btn" type="submit">決済</button>
+>>>>>>> d8593518e652c97f44f4fffe9324961afac6d8a4
 							</div>
 						</form>
 					</div>
@@ -49,21 +53,31 @@
 		</main>
 
 		<div th:replace="~{fragment :: footer}"></div>
+<<<<<<< HEAD
          <script th:inline="javascript">
              const sessionId = /*[[${sessionId}]]*/"sessionId";                
          </script>        
          <script th:src="@{/js/stripe.js}"></script> 
 	</body>
+=======
+>>>>>>> d8593518e652c97f44f4fffe9324961afac6d8a4
 	</div>
 	<!--/*
 	<form method="post" th:action="@{/webhook}">
 		<button id="checkout-button">サブスクリプションを開始</button>
 	</form> */-->
 	
+<<<<<<< HEAD
 	<!--/*<script type="text/javascript">
 		var stripe = Stripe('pk_test_51OQS89Dj1UaUVpmtpuVSgFkHByw8NVmdmwMgY69c1AnMBiC0jREQmqYwCgbah9fePDpdvPOux60oNR4P40PXaxJq00uZo1QEqI');
 
 		document.getElementById('').addEventListener('click', function () {
+=======
+	<script type="text/javascript">
+		var stripe = Stripe('pk_test_51OQS89Dj1UaUVpmtpuVSgFkHByw8NVmdmwMgY69c1AnMBiC0jREQmqYwCgbah9fePDpdvPOux60oNR4P40PXaxJq00uZo1QEqI');
+
+		document.getElementById('checkout-button').addEventListener('click', function () {
+>>>>>>> d8593518e652c97f44f4fffe9324961afac6d8a4
 			fetch('/api/checkout/create-checkout-session', {
 				method: 'POST',
 			})
@@ -82,7 +96,11 @@
 					console.error('Error:', error);
 				});
 		});
+<<<<<<< HEAD
 	</script>*/-->
+=======
+	</script>
+>>>>>>> d8593518e652c97f44f4fffe9324961afac6d8a4
 	</body>
 	
 </html>
